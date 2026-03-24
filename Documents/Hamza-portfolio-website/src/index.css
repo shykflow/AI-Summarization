@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+/* Custom Design Tokens */
+@theme {
+  --color-bg-primary: #020303;
+  --color-bg-secondary: #07110A;
+  --color-bg-card: #07110A;
+  --color-accent: #39FF14;
+  --color-accent-light: #B7FFC2;
+  --color-accent-glow: rgba(57, 255, 20, 0.28);
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A7B3AA;
+  --color-text-muted: #5A6B5F;
+  --color-border: rgba(57, 255, 20, 0.18);
+  --color-border-hover: rgba(57, 255, 20, 0.40);
+  --color-terminal-green: #39FF14;
+  --color-terminal-bg: #020303;
+
+  --font-heading: 'Orbitron', system-ui, sans-serif;
+  --font-sans: 'Rajdhani', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Base Styles */
+@layer base {
+  html {
+    scroll-behavior: auto; /* Lenis handles smooth scrolling */
+    scrollbar-color: var(--color-accent) var(--color-bg-primary); /* Firefox fallback */
+    scrollbar-width: auto;
+  }
+
+  /* WebKit Scrollbar global styling */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-primary);
+    border-left: 1px solid rgba(57, 255, 20, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 6px;
+    border: 2px solid var(--color-bg-primary);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #4DFF2F;
+    border: 1px solid var(--color-bg-primary);
+  }
+
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6, .nav-link, .font-heading {
+    font-family: var(--font-heading);
+    letter-spacing: 0.05em;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: white;
+  }
+}
+
+/* Utility Classes */
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-accent-light), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px var(--color-accent-glow), 0 0 60px rgba(57, 255, 20, 0.1);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px var(--color-accent-glow);
+  }
+
+  .glass {
+    background: rgba(26, 26, 46, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--color-border);
+  }
+
+  .contain-paint {
+    contain: layout style paint;
+  }
+}
+
+@media (min-width: 769px) {
+  * {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--color-accent);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 2147483647;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+    will-change: left, top;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 2147483647;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 15px var(--color-accent), 0 0 30px var(--color-accent), 0 0 45px rgba(57, 255, 20, 0.4);
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+    will-change: left, top;
+    animation: cursor-glow-pulse 2s infinite alternate;
+}
+
+@keyframes cursor-glow-pulse {
+    0% {
+        box-shadow: 0 0 10px var(--color-accent), 0 0 20px var(--color-accent), 0 0 30px rgba(57, 255, 20, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 20px var(--color-accent), 0 0 40px var(--color-accent), 0 0 60px rgba(57, 255, 20, 0.6);
+    }
+}
+
+@keyframes hud-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.hud-spin-infinite {
+    animation-name: hud-spin;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    transform-origin: center;
+}
+
+.custom-cursor.cursor-hover {
+    width: 60px;
+    height: 60px;
+    border-color: var(--color-text-primary);
+    background-color: rgba(57, 255, 20, 0.1);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+}
+
+.cursor-dot.cursor-hover {
+    width: 4px;
+    height: 4px;
+    background-color: var(--color-text-primary);
+}
+
+@media (max-width: 768px) {
+    html {
+        cursor: auto;
+    }
+    a, button, .btn, input, textarea, select {
+        cursor: auto !important;
+    }
+    .custom-cursor,
+    .cursor-dot {
+        display: none !important;
+    }
+}
